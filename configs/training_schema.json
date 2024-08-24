@@ -1,0 +1,263 @@
+{
+    "type": "object",
+    "properties": {
+        "dataset":{
+            "type": "object",
+            "description": "Dataset dictionary.",
+            "properties": {
+                "dataset_name": {
+					"type": "string",
+					"description": "Determine which dataset to use.",
+					"enum": ["imagenette", "imagenet100", "imagenet", "imagewoof", "cifar10", "fashionmnist", "mnist", "svhn", "cityscapes"]
+				},
+                "data_augmentation":{
+					"type": "boolean",
+					"description": "Determine whether or not to apply data augmentation",
+                    "default": true
+				},
+                "data_path": {
+                    "type" : "string",
+                    "description": "Path to the dataset"
+                }
+            }
+        },
+        "model":{
+            "type": "object",
+            "description": "Dataset dictionary.",
+            "properties": {
+                "model_name": {
+					"type": "string",
+					"description": "Determine which model to use.",
+					"enum": ["resnet18", "resnet34", "resnet50", "resnet101", "resnet152", "dropsample"]
+				},
+                "pretrained":{
+					"type": "boolean",
+					"description": "Determine whether or not to use a pretrained model",
+                    "default": false
+				},
+                "task": {
+					"type": "string",
+					"description": "Determine what type of task the model should preform",
+					"enum": ["single-label classification", "segmentation"],
+                    "default": "single-label classification"
+				}
+            }
+        },
+        "optimizer":{
+            "type": "object",
+            "description": "Optimizer dictionary.",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "description": "Determine which optimizer to use during training.",
+                    "enum": ["adam", "sgd"],
+                    "default": "adam"
+                },
+                "learning_rate": {
+                    "type" : "number",
+                    "description": "Learning rate for the optimizer",
+                    "default": 0.01
+                },
+                "momentum": {
+                    "type" : "number",
+                    "description": "Momentum to use for SGD.",
+                    "default": 0
+                },
+                "weight_decay": {
+                    "type" : "number",
+                    "description": "Weight decay to use for optimizer.",
+                    "default": 0
+                }
+            }
+        },
+        "scheduler":{
+            "type": "object",
+            "description": "Scheduler dictionary.",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "description": "Determine which scheduler to use during training.",
+                    "enum": ["reduce_on_plateau", "step_lr", "cosine_annealing"],
+                    "default": "step_lr"
+                },
+                "patience": {
+                    "type": "number",
+                    "description": "Reduce on Plateau patience.",
+                    "default": 10
+                },
+                "step_size": {
+                    "type": "number",
+                    "description": "StepLR step size.",
+                    "default": 10
+                }
+            }
+        },
+        "data_dropout": {
+            "type": "object",
+            "description": "Adaptive Data Dropout Policy",
+            "properties": {
+                "dataset_reinit_period": {
+                    "type": "number",
+                    "description": "How often you want to do a dataset reinit"
+                },
+                "shuffle_mask":{
+                    "type": "boolean",
+                    "description": "Determine whether or not to randomly shuffle dataset mask"
+                },
+                "warmup_period": {
+                    "type" : "number",
+                    "description": "How long the network should train before performing data dropout"
+                },
+                "slclassification":{
+                    "type": "object",
+                    "description": "Adaptive Data Dropout Single Classification Policy",
+                    "properties": {
+                        "strategy":{
+                            "type": "string",
+                            "description": "Determine which strategy data dropout strategy to use.",
+                            "enum": ["adaptive", "naive"],
+                            "default": "adaptive"
+                        },
+                        "metric_threshold": {
+                            "type" : "number",
+                            "description": "Threshold to start removing classes for the naive strategy."
+                        },
+                        "residue_percentage": {
+                            "type" : "number",
+                            "description": "Percentage of data to leave behind when removing a class."
+                        },
+                        "reset_residue": {
+                            "type" : "number",
+                            "description": "How often residue examples should be swapped out."
+                        },
+                        "residue_curvature": {
+                            "type": "number",
+                            "description": "Curve intensity of residue."
+                        },
+                        "removal_restriction": {
+                            "type" : "number",
+                            "description": "Restrict how many classes adaptive data dropout can be performed on."
+                        }
+                    }
+                },
+                "segmentation":{
+                    "type": "object",
+                    "description": "Adaptive Data Dropout Segmentation Policy",
+                    "properties":{
+                        "strategy":{
+                            "type": "string",
+                            "description": "Determine which strategy data dropout strategy to use.",
+                            "enum": ["naive_adaptive"],
+                            "default": "naive_adaptive"
+                        },
+                        "residue_curvature": {
+                            "type": "number",
+                            "description": "Curve intensity of residue."
+                        }
+                    }
+                }
+            }
+        },
+        "attributions":{
+            "type": "object",
+            "description": "Attribution dictionary.",
+            "properties":{
+                "explainer_config_path":{
+                    "type": "string",
+                    "description": "Path to explainer config file for training"
+                }
+            }
+        },
+        "strategic_training":{
+            "type": "object",
+            "description": "Strategic Training Policy",
+            "properties":{
+                "ranking_policy":{
+                    "type": "string",
+                    "description": "Determine which ranking policy to use.",
+                    "enum": ["random"],
+                    "default": "random"
+                },
+                "masking_policy":{
+                    "type": "string",
+                    "description": "Determine which masking policy to use.",
+                    "enum": ["all"],
+                    "default": "all"
+                }
+            }
+        },
+        "progress_bar":{
+            "type": "boolean",
+            "description": "Determine if progress bar is needed.",
+            "default": true
+        },
+        "learning_rate": {
+            "type": "number",
+            "description": "Determine learning rate for training."
+        },
+        "batch_size": {
+            "type": "number",
+            "description": "Number of examples per batch.",
+            "default": 1
+        },
+        "epochs": {
+            "type": "number",
+            "description": "Determine how long to train the model.",
+            "default": 5
+        },
+        "gpu": {
+            "type": "number",
+            "description": "Number of gpus to train on.",
+            "default": 0
+        },
+        "num_workers": {
+            "type": "number",
+            "description": "Number of workers to use for dataloaders.",
+            "default": 1
+        },
+        "fresh_start": {
+            "type": "boolean",
+            "description": "Determine if the model should resume from a checkpoint or not.",
+            "default": true
+        },
+        "keep_checkpoints": {
+            "type": "boolean",
+            "description": "Determine if the model should keep every checkpoint",
+            "default": true
+        },
+        "log_dir": {
+            "type": "string",
+            "description": "Directory to save logs.",
+            "default": "./logs"
+        },
+        "metric_file_name": {
+            "type": "string",
+            "description": "Filename to save the metrics to.",
+            "default": "metrics.csv"
+        },
+        "checkpoint_dir": {
+            "type": "string",
+            "description": "Directory to save model checkpoints.",
+            "default": "./checkpoints"
+        },
+        "checkpoint_file": {
+            "type": "string",
+            "description": "Filename to save the model checkpoint to.",
+            "default": "model.pth"
+        },
+        "explanation_dir": {
+            "type": "string",
+            "description": "Directory to save explanations.",
+            "default": "./explanation"
+        },
+        "metric_cutoff": {
+            "type": "number",
+            "description": "Early stopping of training if cutoff is met"
+        }
+    },
+    "required": [
+        "dataset",
+        "model",
+        "optimizer"
+    ]
+}

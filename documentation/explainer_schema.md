@@ -1,0 +1,52 @@
+# JSON Schema
+
+## Properties
+
+- **`attributions`** *(object)*: Attribution dictionary.
+  - **`attribution_type`** *(string)*: Which type of attribution to collect. Must be one of: `["input", "internal_feature", "parameter"]`.
+  - **`input_attribution`** *(object)*: Input attribution dictionary.
+    - **`reference_dataset`** *(object)*: Attribution reference dataset dictionary.
+      - **`dataset_name`** *(string)*: Determine which dataset to use. Must be one of: `["imagenette", "imagenet100", "imagenet", "imagewoof", "cifar10", "fashionmnist", "mnist", "svhn", "cityscapes"]`.
+      - **`data_augmentation`** *(boolean)*: Determine whether or not to apply data augmentation. Default: `true`.
+      - **`data_path`** *(string)*: Path to the dataset.
+    - **`sampler`** *(object)*: Attribution Sampler dictionary. Used mainly for evaluation.
+      - **`method`** *(string)*: Determine which sampler to use. Must be one of: `["ball_sampler", "expected_gradients", "ball_eg_sampler", "class_sampler"]`.
+      - **`num_sample_points`** *(number)*: Number of sample points. (ball_sampler, ball_eg_sampler).
+      - **`eps`** *(number)*: Radius of the ball (ball_sampler, ball_eg_sampler).
+      - **`num_samples_per_line`** *(number)*: Number of samples per line (expected_gradients, ball_eg_sampler).
+      - **`num_reference_points`** *(number)*: Number of lines/line endpoints (expected_gradients, ball_eg_sampler).
+      - **`class_id`** *(array)*: Classes to use as part of the reference dataset.
+    - **`measure`** *(string)*: Determine which measure to use. Must be one of: `["integrated_gradients", "gradient_variance", "stability", "stability_channelwise", "consistency", "consistency_channelwise"]`.
+    - **`batch_id`** *(number)*: Which batch to use. Default: `1`.
+    - **`batch_size`** *(number)*: Number of examples per batch. Default: `1`.
+  - **`parameter_attribution`** *(object)*: Parameter attribution dictionary.
+    - **`input_reference_dataset`** *(object)*: Attribution reference dataset dictionary.
+      - **`dataset_name`** *(string)*: Determine which dataset to use. Must be one of: `["imagenette", "imagenet100", "imagenet", "imagewoof", "cifar10", "fashionmnist", "mnist", "svhn", "cityscapes"]`.
+      - **`data_augmentation`** *(boolean)*: Determine whether or not to apply data augmentation. Default: `true`.
+      - **`data_path`** *(string)*: Path to the dataset.
+    - **`parameter_reference`** *(object)*: Some kind of reference dataset (?) to use in the parameter space.
+      - **`data_path`** *(string)*: Path to the dataset.
+    - **`input_sampler`** *(object)*: Input Attribution Sampler dictionary. Used mainly for evaluation.
+      - **`method`** *(string)*: Determine which sampler to use. Must be one of: `["ball_sampler", "expected_gradients", "ball_eg_sampler", "class_sampler"]`.
+      - **`num_sample_points`** *(number)*: Number of sample points. (ball_sampler, ball_eg_sampler).
+      - **`eps`** *(number)*: Radius of the ball (ball_sampler, ball_eg_sampler).
+      - **`num_samples_per_line`** *(number)*: Number of samples per line (expected_gradients, ball_eg_sampler).
+      - **`num_reference_points`** *(number)*: Number of lines/line endpoints (expected_gradients, ball_eg_sampler).
+      - **`class_id`** *(array)*: Classes to use as part of the reference dataset.
+    - **`parameter_sampler`** *(object)*: Parameter Attribution Sampler dictionary. Used mainly for evaluation.
+      - **`method`** *(string)*: Determine which sampler to use. Must be one of: `["ball_sampler", "expected_gradients", "ball_eg_sampler"]`.
+      - **`num_sample_points`** *(number)*: Number of sample points. (ball_sampler, ball_eg_sampler).
+      - **`eps`** *(number)*: Radius of the ball (ball_sampler, ball_eg_sampler).
+      - **`num_samples_per_line`** *(number)*: Number of samples per line (expected_gradients, ball_eg_sampler).
+      - **`num_reference_points`** *(number)*: Number of lines/line endpoints (expected_gradients, ball_eg_sampler).
+    - **`measure`** *(string)*: Determine which measure to use. Must be one of: `["integrated_gradients", "gradient_variance", "stability", "stability_channelwise", "consistency", "consistency_channelwise"]`.
+  - **`attribution_priors`** *(object)*: Arguments for use in prior-training.
+    - **`input_attribution_prior`** *(object)*: Arguments for input attributions.
+      - **`regularization_method`** *(string)*: How to aggregate attributions into a single value. Must be one of: `["mean", "median", "min", "max"]`.
+      - **`weight`** *(number)*: How much weight to give to the input attribution prior.
+      - **`absolute_measure`** *(boolean)*: Whether to take absolute value of attributions before aggregation.
+    - **`model_attribution_prior`** *(object)*: Arguments for parameter attributions.
+      - **`regularization_method`** *(string)*: How to aggregate attributions into a single value. Must be one of: `["mean", "median", "min", "max"]`.
+      - **`weight`** *(number)*: How much weight to give to the parameter attribution prior.
+      - **`absolute_measure`** *(boolean)*: Whether to take absolute value of attributions before aggregation.
+- **`save_dir`** *(string)*: Directory to save explanations. Default: `"./explanation"`.

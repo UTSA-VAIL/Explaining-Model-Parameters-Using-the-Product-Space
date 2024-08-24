@@ -1,0 +1,48 @@
+# JSON Schema
+
+## Properties
+
+- **`dataset`** *(object)*: Dataset dictionary.
+  - **`dataset_name`** *(string)*: Determine which dataset to use. Must be one of: `["imagenette", "imagenet100", "imagenet", "imagewoof", "cifar10", "fashionmnist", "mnist", "svhn", "cityscapes"]`.
+  - **`data_augmentation`** *(boolean)*: Determine whether or not to apply data augmentation. Default: `true`.
+  - **`data_path`** *(string)*: Path to the dataset.
+- **`model`** *(object)*: Dataset dictionary.
+  - **`model_name`** *(string)*: Determine which model to use. Must be one of: `["resnet18", "resnet34", "resnet50", "resnet101", "resnet152", "dropsample"]`.
+  - **`pretrained`** *(boolean)*: Determine whether or not to use a pretrained model. Default: `false`.
+  - **`task`** *(string)*: Determine what type of task the model should preform. Must be one of: `["single-label classification", "segmentation"]`. Default: `"single-label classification"`.
+- **`optimizer`** *(object)*: Optimizer dictionary.
+  - **`method`** *(string)*: Determine which optimizer to use during training. Must be one of: `["adam", "sgd"]`. Default: `"adam"`.
+  - **`learning_rate`** *(number)*: Learning rate for the optimizer. Default: `0.01`.
+  - **`momentum`** *(number)*: Momentum to use for SGD. Default: `0`.
+  - **`weight_decay`** *(number)*: Weight decay to use for optimizer. Default: `0`.
+- **`scheduler`** *(object)*: Scheduler dictionary.
+  - **`method`** *(string)*: Determine which scheduler to use during training. Must be one of: `["reduce_on_plateau", "step_lr", "cosine_annealing"]`. Default: `"step_lr"`.
+  - **`patience`** *(number)*: Reduce on Plateau patience. Default: `10`.
+  - **`step_size`** *(number)*: StepLR step size. Default: `10`.
+- **`data_dropout`** *(object)*: Adaptive Data Dropout Policy.
+  - **`dataset_reinit_period`** *(number)*: How often you want to do a dataset reinit.
+  - **`shuffle_mask`** *(boolean)*: Determine whether or not to randomly shuffle dataset mask.
+  - **`warmup_period`** *(number)*: How long the network should train before performing data dropout.
+  - **`slclassification`** *(object)*: Adaptive Data Dropout Single Classification Policy.
+    - **`strategy`** *(string)*: Determine which strategy data dropout strategy to use. Must be one of: `["adaptive", "naive"]`. Default: `"adaptive"`.
+    - **`metric_threshold`** *(number)*: Threshold to start removing classes for the naive strategy.
+    - **`residue_percentage`** *(number)*: Percentage of data to leave behind when removing a class.
+    - **`reset_residue`** *(number)*: How often residue examples should be swapped out.
+    - **`residue_curvature`** *(number)*: Curve intensity of residue.
+    - **`removal_restriction`** *(number)*: Restrict how many classes adaptive data dropout can be performed on.
+- **`attributions`** *(object)*: Attribution dictionary.
+  - **`explainer_config_path`** *(string)*: Path to explainer config file for training.
+- **`progress_bar`** *(boolean)*: Determine if progress bar is needed. Default: `true`.
+- **`learning_rate`** *(number)*: Determine learning rate for training.
+- **`batch_size`** *(number)*: Number of examples per batch. Default: `1`.
+- **`epochs`** *(number)*: Determine how long to train the model. Default: `5`.
+- **`gpu`** *(number)*: Number of gpus to train on. Default: `0`.
+- **`num_workers`** *(number)*: Number of workers to use for dataloaders. Default: `1`.
+- **`fresh_start`** *(boolean)*: Determine if the model should resume from a checkpoint or not. Default: `true`.
+- **`keep_checkpoints`** *(boolean)*: Determine if the model should keep every checkpoint. Default: `true`.
+- **`log_dir`** *(string)*: Directory to save logs. Default: `"./logs"`.
+- **`metric_file_name`** *(string)*: Filename to save the metrics to. Default: `"metrics.csv"`.
+- **`checkpoint_dir`** *(string)*: Directory to save model checkpoints. Default: `"./checkpoints"`.
+- **`checkpoint_file`** *(string)*: Filename to save the model checkpoint to. Default: `"model.pth"`.
+- **`explanation_dir`** *(string)*: Directory to save explanations. Default: `"./explanation"`.
+- **`metric_cutoff`** *(number)*: Early stopping of training if cutoff is met.

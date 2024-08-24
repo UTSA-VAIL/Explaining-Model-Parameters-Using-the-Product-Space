@@ -1,0 +1,24 @@
+{
+    "data_augmentation": true,
+    "optimizer": {
+        "learning_rate": 0.01,
+        "method": "adam"
+    },
+    "scheduler": {
+        "method": "cosine_annealing"
+    },
+    "epochs": 40,
+    "batch_size": 128,
+    "gpu": 0,
+    "num_workers": 16,
+    "progress_bar": false,
+    "data_dropout": {},
+    "attributions": {},
+    "strategic_training": {},
+    "fresh_start": true,
+    "keep_checkpoints" : true,
+    "log_dir": "./logs",
+    "checkpoint_dir": "./checkpoints",
+    "metric_file_name": "metrics.csv",
+    "checkpoint_file": "model.pth"
+}

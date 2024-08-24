@@ -1,0 +1,54 @@
+{
+    "attributions":{
+        "attribution_type": "parameter",
+        "input_attribution":{
+            "reference_dataset":{
+                "dataset_name": "cifar10",
+                "data_augmentation": true,
+                "data_path": "/data/cifar10"
+            },
+            "sampler":{
+                "method": "ball_eg_sampler",
+                "eps": 0.01, 
+                "num_samples_per_line": 1,
+                "num_reference_points": 2,
+                "class_id": []
+            },
+            "measure": "integrated_gradients",
+            "batch_id": 0,
+            "batch_size": 16
+        },
+        "parameter_attribution":{
+            "input_reference_dataset":{
+                "dataset_name": "cifar10",
+                "data_augmentation": true,
+                "data_path": "/data/cifar10"
+            },
+            "parameter_reference":{},
+            "input_sampler":{
+                "method": "class_sampler",
+                "num_sample_points": 2,
+                "class_id": []
+            },
+            "parameter_sampler":{
+                "method": "ball_sampler",
+                "eps": 0.01, 
+                "num_sample_points": 2
+            },
+            "measure": "integrated_gradients",
+            "parameter_attribute_name": "ig"
+        },
+        "attribution_priors":{
+            "input_attribution_prior":{
+                "regularization_method": "mean",
+                "weight": 1e3,
+                "absolute_measure": true
+            },
+            "parameter_attribution_prior": {
+                "regularization_method": "mean",
+                "absolute_measure": true
+            }
+        }
+    },
+    "save_dir": "./explanations"
+}

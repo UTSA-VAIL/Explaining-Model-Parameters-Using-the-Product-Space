@@ -1,0 +1,13 @@
+{
+    "training_config_path": "./configs/cifar10/baseline_cifar10.json",
+    "explainer_config_path": "./configs/default_explainer.json",
+    "log_dir": "./logs/eval",
+    "metric_file_name": "eval_metrics.csv",
+    "evaluate_test_set": true,
+    "all_checkpoints": false,
+    "pruning": {
+        "method": "attribution",
+        "proportion": 0.05,
+        "absolute_attributions": true
+    }
+}

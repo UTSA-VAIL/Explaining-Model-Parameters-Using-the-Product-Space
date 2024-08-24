@@ -1,0 +1,65 @@
+{
+    "type": "object",
+    "properties": {
+        "training_config_path": {
+            "type": "string",
+            "description": "Path to training config file."
+        },
+        "explainer_config_path": {
+            "type": "string",
+            "description": "Path to explainer config file."
+        },
+        "metric_file_name": {
+            "type": "string",
+            "description": "Filename to save the eval metrics to.",
+            "default": "eval_metrics.csv"
+        },
+        "log_dir": {
+            "type": "string",
+            "description": "Directory to save eval logs to.",
+            "default": "./logs/eval"
+        },
+        "evaluate_test_set": {
+            "type": "boolean",
+            "description": "Determine whether to evaluate the test set",
+            "default": true
+        },
+        "all_checkpoints": {
+            "type": "boolean",
+            "description": "Determine if all checkpoints should be evaluated",
+            "default": false
+        },
+        "progress_bar":{
+            "type": "boolean",
+            "description": "Determine if progress bar is needed.",
+            "default": false
+        },
+        "pruning":{
+            "type": "object",
+            "description": "Pruning dictionary.",
+            "properties": {
+                "method": {
+                    "type": "string",
+                    "description": "Determine which pruning method to use",
+                    "enum": ["random", "attribution"],
+                    "default": "attribution"
+                },
+                "proportion": {
+                    "type": "number",
+                    "description": "Determine network pruning proportion for pruning experiment",
+                    "default": 0.1,
+                    "minimum": 0,
+                    "maximum": 1
+                },
+                "absolute_attributions": {
+                    "type": "boolean",
+                    "description": "Determine whether or not to absolute when pruning",
+                    "default": false
+                }
+            }
+        }
+    },
+    "required": [
+        "training_config_path"
+    ]
+}
